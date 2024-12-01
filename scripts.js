@@ -65,6 +65,7 @@ function addButtonForAudio(i, buttonText, audioPath, containerElem) {
 function addPlayAllButtonForRow(containerElem) {
   const btn = document.createElement('button');
   btn.innerHTML = 'Play all';
+  btn.setAttribute('class', 'play-all');
   btn.addEventListener('click', playAllInDiv);
 
   containerElem.append(btn);

@@ -12,5 +12,12 @@ div {
   padding-top: 30px;
 }
 button {
-  font-size: 120px;
+  font-size: 60px;
+  padding: 5px;
+  margin: 10px;
+
+  &.play-all { /* Play All button in particular */
+    margin-left: 50px;
+    font-weight: bold;
+  }
 }
