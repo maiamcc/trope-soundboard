@@ -7,14 +7,25 @@ function stopAll() {
 }
 
 function playOne(audio_id) {
-  stopAll()
-  const audio = document.getElementById(audio_id)
-  audio.play()
+  return new Promise(res=> {
+    stopAll()
+    const audio = document.getElementById(audio_id)
+    audio.play()
+    audio.onended = res
+  })
 }
 
-function playForButtonClick(event) {
+async function playForButtonClick(event) {
   const audioId = event.target.getAttribute('data-associated-audio_id')
-  playOne(audioId)
+  await playOne(audioId)
+}
+
+async function playAllInDiv(event) {
+  console.log(event)
+  const audiosInDiv = event.target.parentElement.getElementsByTagName('audio')
+  for (let i = 0; i < audiosInDiv.length; i++) {
+      await playOne(audiosInDiv[i].id)
+  }
 }
 
 window.addEventListener("DOMContentLoaded", function() {
@@ -23,6 +34,10 @@ window.addEventListener("DOMContentLoaded", function() {
   console.log('buttons:', buttons)
   // put the listener on all of them
   for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", playForButtonClick)
+    if (buttons[i].getAttribute('data-associated-audio_id') == 'all') {
+      buttons[i].addEventListener('click', playAllInDiv)
+    } else {
+      buttons[i].addEventListener("click", playForButtonClick)
+    }
   }
 }, false);
